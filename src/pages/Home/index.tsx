@@ -1,12 +1,10 @@
+import Menu from "../../components/Menu";
+import * as S from "./styles"
+
 const Home = () => {
   return (
-    <div>
-      <div>
-        <img src="" alt="logo" />
-        <img src="" alt="home" />
-        <img src="" alt="settings" />
-        <img src="" alt="logout" />
-      </div>
+    <S.HomeContainer>
+      <Menu/>
       <div>
         <header>
           <div>
@@ -70,7 +68,7 @@ const Home = () => {
           <button>Continuar para o pagamento</button>
         </div>
       </aside>
-    </div>
+    </S.HomeContainer>
   );
 };
 
