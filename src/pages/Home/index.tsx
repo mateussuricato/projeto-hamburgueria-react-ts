@@ -4,7 +4,7 @@ import * as S from "./styles"
 const Home = () => {
   return (
     <S.HomeContainer>
-      <Menu/>
+      <Menu path="home"/>
       <div>
         <header>
           <div>
