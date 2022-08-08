@@ -1,15 +1,15 @@
 import { SearchIcon } from "../../assets/icons";
 import Menu from "../../components/Menu";
-import * as S from "./styles"
+import * as S from "./styles";
 import { DateTime } from "luxon";
 
 const Home = () => {
-  const date = DateTime.now()
-  const formatedDate = `${date.weekdayShort} ${date.day} ${date.monthLong} ${date.year}`
+  const date = DateTime.now();
+  const formatedDate = `${date.weekdayShort} ${date.day} ${date.monthLong} ${date.year}`;
 
   return (
     <S.HomeContainer>
-      <Menu path="home"/>
+      <Menu path="home" />
       <S.HomeContentContainer>
         <S.HomeContentHeader>
           <S.TitleContainer>
@@ -17,20 +17,23 @@ const Home = () => {
             <p>{formatedDate}</p>
           </S.TitleContainer>
           <S.SearchInputContainer>
-            <SearchIcon/>
-            <input type="text" placeholder="Procure pelo sabor"/>
+            <SearchIcon />
+            <input type="text" placeholder="Procure pelo sabor" />
           </S.SearchInputContainer>
         </S.HomeContentHeader>
         <section>
-          <div>
-            <p>Lanches</p>
-          </div>
-          <div>
+          <S.CategoriesNavigationBar>
+            <S.CategoriesNavigationButton active>Lanches</S.CategoriesNavigationButton>
+            <S.CategoriesNavigationButton>Porções</S.CategoriesNavigationButton>
+            <S.CategoriesNavigationButton>Bebidas</S.CategoriesNavigationButton>
+          </S.CategoriesNavigationBar>
+          <S.ProductsHeaderContainer>
             <h2>Escolha seu lanche</h2>
-            <select>
+            <S.TableSelect>
+              <option value="" disabled selected>Selecione a mesa</option>
               <option value="1">1</option>
-            </select>
-          </div>
+            </S.TableSelect>
+          </S.ProductsHeaderContainer>
           <div>
             <div>card</div>
             <div>card</div>
