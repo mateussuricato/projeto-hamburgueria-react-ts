@@ -1,21 +1,26 @@
+import { SearchIcon } from "../../assets/icons";
 import Menu from "../../components/Menu";
 import * as S from "./styles"
+import { DateTime } from "luxon";
 
 const Home = () => {
+  const date = DateTime.now()
+  const formatedDate = `${date.weekdayShort} ${date.day} ${date.monthLong} ${date.year}`
+
   return (
     <S.HomeContainer>
       <Menu path="home"/>
-      <div>
-        <header>
-          <div>
+      <S.HomeContentContainer>
+        <S.HomeContentHeader>
+          <S.TitleContainer>
             <h1>Bruger Fresh</h1>
-            <p>{new Date(Date.now()).toLocaleString()}</p>
-          </div>
-          <div>
-            <img src="" alt="search-icon" />
-            <input type="text" />
-          </div>
-        </header>
+            <p>{formatedDate}</p>
+          </S.TitleContainer>
+          <S.SearchInputContainer>
+            <SearchIcon/>
+            <input type="text" placeholder="Procure pelo sabor"/>
+          </S.SearchInputContainer>
+        </S.HomeContentHeader>
         <section>
           <div>
             <p>Lanches</p>
@@ -34,7 +39,7 @@ const Home = () => {
             <div>card</div>
           </div>
         </section>
-      </div>
+      </S.HomeContentContainer>
       <aside>
         <header>
           <h2>Pedido 12</h2>
