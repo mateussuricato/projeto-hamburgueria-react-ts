@@ -1,4 +1,5 @@
 import { Product } from "../../types"
+import * as S from "./styles"
 
 interface ProductCardProps {
     product: Product
@@ -6,12 +7,12 @@ interface ProductCardProps {
 
 const ProductCard = ({product}: ProductCardProps) => {
     return (
-        <div>
+        <S.CardContainer>
             <img src={product.image} alt={product.name} />
-            <h3>{product.name}</h3>
+            <h4>{product.name}</h4>
             <p>{product.price}</p>
             <p>{product.description}</p>
-        </div>
+        </S.CardContainer>
     )
 }
 

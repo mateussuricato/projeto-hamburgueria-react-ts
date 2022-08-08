@@ -2,6 +2,8 @@ import { SearchIcon } from "../../assets/icons";
 import Menu from "../../components/Menu";
 import * as S from "./styles";
 import { DateTime } from "luxon";
+import { mockedProducts } from "../../mocks";
+import ProductsList from "../../components/ProductsList";
 
 const Home = () => {
   const date = DateTime.now();
@@ -34,13 +36,7 @@ const Home = () => {
               <option value="1">1</option>
             </S.TableSelect>
           </S.ProductsHeaderContainer>
-          <div>
-            <div>card</div>
-            <div>card</div>
-            <div>card</div>
-            <div>card</div>
-            <div>card</div>
-          </div>
+          <ProductsList list={mockedProducts}/>
         </section>
       </S.HomeContentContainer>
       <aside>
