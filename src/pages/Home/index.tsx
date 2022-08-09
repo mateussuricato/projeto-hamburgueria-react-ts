@@ -7,14 +7,16 @@ import ProductsList from "../../components/ProductsList";
 import { mockedCategories } from "../../mocks";
 import { useState } from "react";
 import { Category, Product } from "../../types";
+import OrderDetails from "../../components/OrderDetails";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>(
     mockedCategories[0]
   );
 
-
-    const filteredProducts: Product[] = mockedProducts.filter((element) => element.categoryId === selectedCategory.id)
+  const filteredProducts: Product[] = mockedProducts.filter(
+    (element) => element.categoryId === selectedCategory.id
+  );
 
   const handleChangeCategory = (category: Category) => {
     setSelectedCategory(category);
@@ -40,11 +42,13 @@ const Home = () => {
           <S.CategoriesNavigationBar>
             {mockedCategories.map((element) => {
               return (
-              <S.CategoriesNavigationButton active={element.name === selectedCategory.name}
-              onClick={() => handleChangeCategory(element)}
-              >
-                {element.name}
-              </S.CategoriesNavigationButton>);
+                <S.CategoriesNavigationButton
+                  active={element.name === selectedCategory.name}
+                  onClick={() => handleChangeCategory(element)}
+                >
+                  {element.name}
+                </S.CategoriesNavigationButton>
+              );
             })}
           </S.CategoriesNavigationBar>
           <S.ProductsHeaderContainer>
@@ -59,39 +63,7 @@ const Home = () => {
           <ProductsList list={filteredProducts} />
         </section>
       </S.HomeContentContainer>
-      <aside>
-        <header>
-          <h2>Pedido 12</h2>
-          <div>
-            <button>Comer no Local</button>
-            <button>P/ Viagem</button>
-            <button>Delivery</button>
-          </div>
-        </header>
-        <div>
-          <div>
-            <h3>Item</h3>
-            <h3>Qtd</h3>
-            <h3>Preço</h3>
-          </div>
-          <div>
-            <div>Card Checkout</div>
-            <div>Card Checkout</div>
-            <div>Card Checkout</div>
-          </div>
-        </div>
-        <div>
-          <div>
-            <p>Desconto</p>
-            <p>R$0,00</p>
-          </div>
-          <div>
-            <p>Sub Total</p>
-            <p>R$0,00</p>
-          </div>
-          <button>Continuar para o pagamento</button>
-        </div>
-      </aside>
+      <OrderDetails />
     </S.HomeContainer>
   );
 };
