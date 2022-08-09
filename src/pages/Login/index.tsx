@@ -20,7 +20,7 @@ const Login = ({ setLogged }: LoginProps) => {
     if (email === "admin" && password === "admin") {
       setLogged(true);
       navigate("/");
-      toast.success("Bem Vindo!")
+      toast.success("Bem Vindo(a) Larissa!")
       return;
     }
 
