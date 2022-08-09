@@ -1,12 +1,22 @@
 import * as S from "./styles";
 import Logo from "../../assets/logo_patterns/logo.png";
 import { HomeIcon, SettingsIcon, LogoutIcon } from "../../assets/icons";
+import { useNavigate } from "react-router-dom";
+import { Dispatch, SetStateAction } from "react";
 
 interface MenuProps {
   path: "home" | "settings"
+  setLogged: Dispatch<SetStateAction<boolean>>;
 }
 
-const Menu = ({path}: MenuProps) => {
+const Menu = ({path, setLogged}: MenuProps) => {
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    setLogged(false)
+    navigate('/login')
+  }
+
   return (
     <S.MenuContainer>
       <img src={Logo} alt="logo" />
@@ -23,7 +33,7 @@ const Menu = ({path}: MenuProps) => {
         </S.MenuItem>
       </nav>
       <S.MenuItem logout>
-        <S.MenuItemButton>
+        <S.MenuItemButton onClick={handleLogout}>
           <LogoutIcon />
         </S.MenuItemButton>
       </S.MenuItem>
