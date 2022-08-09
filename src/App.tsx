@@ -3,10 +3,9 @@ import "./App.css";
 import Router from "./router";
 
 function App() {
-
   return (
     <div className="App">
-      <Toaster/>
+      <Toaster position="bottom-center" reverseOrder={false} />
       <Router />
     </div>
   );
