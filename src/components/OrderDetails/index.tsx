@@ -1,3 +1,4 @@
+import Button from "../Button";
 import * as S from "./styles";
 
 const OrderDetails = () => {
@@ -32,7 +33,9 @@ const OrderDetails = () => {
           <p>Sub Total</p>
           <p>R$0,00</p>
         </div>
-        <button>Continuar para o pagamento</button>
+        <Button text="Continuar para o pagamento" onClick={() => {}}
+        size="large"
+        />
       </div>
       </S.OrderDetailsContainer>
   );
