@@ -7,37 +7,49 @@ const OrderDetails = () => {
       <S.OrderDetailsHeader>
         <h2>Pedido 12</h2>
         <div>
-          <button>Comer no Local</button>
-          <button>P/ Viagem</button>
-          <button>Delivery</button>
+          <Button text="Comer no local" onClick={() => {}} size="small" />
+          <Button
+            text="P/ Viagem"
+            onClick={() => {}}
+            size="small"
+            variant="disabled"
+          />
+          <Button
+            text="Delivery"
+            onClick={() => {}}
+            size="small"
+            variant="disabled"
+          />
         </div>
-        </S.OrderDetailsHeader>
-      <div>
-        <div>
+      </S.OrderDetailsHeader>
+      <S.CheckoutDetailsContainer>
+        <S.CheckoutDetailsHeader>
           <h3>Item</h3>
           <h3>Qtd</h3>
           <h3>Preço</h3>
-        </div>
+        </S.CheckoutDetailsHeader>
         <div>
           <div>Card Checkout</div>
           <div>Card Checkout</div>
           <div>Card Checkout</div>
         </div>
-      </div>
-      <div>
+      </S.CheckoutDetailsContainer>
+      <S.OrderDetailsFooter>
         <div>
           <p>Desconto</p>
-          <p>R$0,00</p>
+          <h3>R$0,00</h3>
         </div>
         <div>
           <p>Sub Total</p>
-          <p>R$0,00</p>
+          <h3>R$0,00</h3>
         </div>
-        <Button text="Continuar para o pagamento" onClick={() => {}}
-        size="large"
+        <Button
+          text="Continuar para o pagamento"
+          onClick={() => {}}
+          size="large"
         />
-      </div>
-      </S.OrderDetailsContainer>
+      </S.OrderDetailsFooter>
+    </S.OrderDetailsContainer>
   );
 };
 
