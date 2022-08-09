@@ -6,8 +6,6 @@ import { useState } from "react";
 const Router = () => {
   const [logged, setLogged] = useState<boolean>(false);
 
-  if(!logged) return
-
   return (
     <Routes>
       {logged ? (
