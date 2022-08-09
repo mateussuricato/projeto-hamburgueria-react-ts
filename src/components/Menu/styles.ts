@@ -10,7 +10,7 @@ interface MenuItemButtonProps {
 }
 
 export const MenuContainer = styled.div`
-  width: 6.5rem;
+  min-width: 6.5rem;
   height: 100vh;
   border-radius: 16px;
   background-color: #1f1d2b;
@@ -28,7 +28,7 @@ export const MenuContainer = styled.div`
 `;
 
 export const MenuItem = styled.div<MenuItemProps>`
-  height: 80px;
+  min-height: 80px;
   width: calc(100% - 12px);
   margin-left: 12px;
   box-sizing: border-box;
