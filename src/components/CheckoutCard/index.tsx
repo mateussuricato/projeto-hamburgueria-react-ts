@@ -3,6 +3,7 @@ import * as S from "./styles";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { TrashIcon } from "../../assets/icons";
+import Input from "../Input";
 
 interface CheckoutCardProps {
   product: Product;
@@ -29,10 +30,9 @@ const CheckoutCard = ({ product }: CheckoutCardProps) => {
         <span>R${(quantity * product.price).toFixed(2)}</span>
       </S.CheckoutCardHeader>
       <S.ChckoutCardFooter>
-        <input
+        <Input
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+          onChange={(e) => setDescription(e.target.value)} placeholder="Detalhes do produto"        />
         <S.RemoveProductButton
           onClick={() => toast.error("Sessão em desenvolvimento!")}
         >
