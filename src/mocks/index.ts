@@ -35,6 +35,28 @@ export const mockedProducts: T.Product[] = [
     updatedAt: new Date(),
   },
   {
+    id: "3df26203-5a36-402b-ac7d-437339db15bf",
+    name: "Burguer Salada",
+    description:
+      "Hamburguer com uma carne bovina de 180g, queijo, salada e molho especial.",
+    price: 17.99,
+    image: burguerSalada,
+    categoryId: "1c86eac1-f2b9-4bdf-8dc9-21bcd789da4g",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: "10c6c5d1-24eb-436d-a21a-0c9b8516f9fa",
+    name: "Burguer Salada e Queijo Especial",
+    description:
+      "Hamburguer com uma carne bovina de 180g, queijo especial artesanal, salada e molho.",
+    price: 22.99,
+    image: burguerSaladaQueijo,
+    categoryId: "1c86eac1-f2b9-4bdf-8dc9-21bcd789da4g",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
     id: "b201ee19-c00d-4e2a-bdf0-f4101348f1b5",
     name: "Burguer Carne e Frango",
     description:
@@ -149,6 +171,12 @@ export const mockedCategories: T.Category[] = [
     createdAt: new Date(),
     updatedAt: new Date(),
   },
+  {
+    id: "1c86eac1-f2b9-4bdf-8dc9-21bcd789da4g",
+    name: "Favoritos",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
 ];
 
 export const mockedTables: T.Table[] = [
@@ -199,11 +227,19 @@ export const mockedFavorites: T.Favorite[] = [
   {
     id: "35abf7f1-c999-4bcf-abfb-a95cb483a2b9",
     productName: "Burguer Salada e Queijo Especial",
+    description:
+      "Hamburguer com uma carne bovina de 180g, queijo, salada e molho especial.",
+    price: 17.99,
+    image: burguerSalada,
     userId: "6d6cf9d2-cf94-4b90-a53b-973d92501e02",
     favoritedAt: new Date(),
   },
   {
     id: "9a5a8f0e-43aa-4d77-8afd-e3a95deddc81",
+    description:
+      "Hamburguer com uma carne bovina de 180g, queijo especial artesanal, salada e molho.",
+    price: 22.99,
+    image: burguerSaladaQueijo,
     productName: "Burguer Duplo Bacon e Cheddar",
     userId: "6d6cf9d2-cf94-4b90-a53b-973d92501e02",
     favoritedAt: new Date(),

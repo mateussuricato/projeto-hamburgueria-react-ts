@@ -1,11 +1,11 @@
 import * as S from "./styles";
 import Logo from "../../assets/logo_patterns/logo.png";
-import { HomeIcon, SettingsIcon, LogoutIcon } from "../../assets/icons";
+import { HomeIcon, SettingsIcon, LogoutIcon, FavIcon} from "../../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { Dispatch, SetStateAction } from "react";
 
 interface MenuProps {
-  path: "home" | "settings";
+  path: "home" | "settings" | "favorites";
   setLogged: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -27,6 +27,14 @@ const Menu = ({ path, setLogged }: MenuProps) => {
             active={path === "home"}
           >
             <HomeIcon />
+          </S.MenuItemButton>
+        </S.MenuItem>
+        <S.MenuItem active={path === "favorites"}>
+          <S.MenuItemButton
+            onClick={() => navigate("/favorites")}
+            active={path === "favorites"}
+          >
+            <FavIcon />
           </S.MenuItemButton>
         </S.MenuItem>
         <S.MenuItem active={path === "settings"}>

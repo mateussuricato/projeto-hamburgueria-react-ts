@@ -5,7 +5,7 @@ import Router from "./router";
 function App() {
   return (
     <div className="App">
-      <Toaster position="bottom-center" reverseOrder={false} />
+      <Toaster position="bottom-center" reverseOrder={false}/>
       <Router />
     </div>
   );

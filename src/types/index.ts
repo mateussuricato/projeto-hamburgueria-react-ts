@@ -35,6 +35,9 @@ export interface User {
 export interface Favorite {
   id?: string;
   userId: string;
+  description?: string
+  price?: number
+  image?: string
   productName: string;
   favoritedAt?: Date;
 }

@@ -2,7 +2,7 @@ import { SearchIcon } from "../../assets/icons";
 import Menu from "../../components/Menu";
 import * as S from "./styles";
 import { DateTime } from "luxon";
-import { mockedProducts } from "../../mocks";
+import { mockedProducts, mockedFavorites } from "../../mocks";
 import ProductsList from "../../components/ProductsList";
 import { mockedCategories } from "../../mocks";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -13,7 +13,7 @@ interface HomeProps {
   setLogged: Dispatch<SetStateAction<boolean>>;
 }
 
-const Home = ({setLogged}: HomeProps) => {
+const Home = ({ setLogged }: HomeProps) => {
   const [selectedCategory, setSelectedCategory] = useState<Category>(
     mockedCategories[0]
   );
@@ -30,7 +30,7 @@ const Home = ({setLogged}: HomeProps) => {
 
   return (
     <S.HomeContainer>
-      <Menu path="home" setLogged={setLogged}/>
+      <Menu path="home" setLogged={setLogged} />
       <S.HomeContentContainer>
         <S.HomeContentHeader>
           <S.TitleContainer>
