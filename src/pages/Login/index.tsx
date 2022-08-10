@@ -19,7 +19,7 @@ const Login = ({ setLogged }: LoginProps) => {
   const handleLogin = () => {
     if (email === "admin" && password === "admin") {
       setLogged(true);
-      navigate("/");
+      navigate("/home");
       toast.success("Bem Vindo(a) Larissa!")
       return;
     }
