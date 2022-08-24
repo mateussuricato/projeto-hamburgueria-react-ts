@@ -1,7 +1,14 @@
-import { createContext, useContext, ReactNode, useState } from "react";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../types";
+import axios from "axios";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -36,8 +43,40 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     localStorage.clear();
     setLogged(false);
     navigate("/");
-    toast.success("Logout bem sucedido");
   };
+
+  const checkTokenExpiration = () => {
+    const user = JSON.parse(localStorage.getItem("user") || "");
+    const token = localStorage.getItem("token");
+
+    const headers = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios
+      .get(
+        `https://projetoblue-hamburgueria-api-production.up.railway.app/users/${user.id}`,
+        headers
+      )
+      .then(() => {
+        setLogged(true);
+        navigate("/")
+      })
+      .catch(() => {
+        logout();
+        toast.success("Necessário fazer login novamente");
+      });
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      checkTokenExpiration();
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ logged, login, logout }}>

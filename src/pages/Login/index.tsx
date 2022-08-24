@@ -2,17 +2,14 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import * as S from "./styles";
 import logo from "../../assets/logo_patterns/logo.png";
-import { Dispatch, SetStateAction, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import { useAuth } from "../../contexts/auth";
 
-interface LoginProps {
-  setLogged: Dispatch<SetStateAction<boolean>>;
-}
 
-const Login = ({ setLogged }: LoginProps) => {
-  const navigate = useNavigate();
+const Login = () => {
+  const { login } = useAuth()
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -30,12 +27,7 @@ const Login = ({ setLogged }: LoginProps) => {
           data
         )
         .then((res) => {
-          localStorage.setItem("token", res.data.token)
-          localStorage.setItem("user", JSON.stringify(res.data.user))
-          const token = localStorage.getItem("token")
-          setLogged(true);
-          navigate("/");
-          toast.success(`Bem vindo(a) ${res.data.user.name} `, { duration: 7000 });
+          login({token: res.data.token, user: res.data.user})
         })
         .catch(() => {
           toast.error("Usuário ou Senha inválido");

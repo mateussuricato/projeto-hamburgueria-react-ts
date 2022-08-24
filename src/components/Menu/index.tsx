@@ -2,23 +2,18 @@ import * as S from "./styles";
 import Logo from "../../assets/logo_patterns/logo.png";
 import { HomeIcon, SettingsIcon, LogoutIcon, FavIcon} from "../../assets/icons";
 import { useNavigate } from "react-router-dom";
-import { Dispatch, SetStateAction } from "react";
+
 import toast from "react-hot-toast";
+import { useAuth } from "../../contexts/auth";
 
 interface MenuProps {
   path: "home" | "settings" | "favorites";
-  setLogged: Dispatch<SetStateAction<boolean>>;
 }
 
-const Menu = ({ path, setLogged }: MenuProps) => {
+const Menu = ({ path }: MenuProps) => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.clear()
-    setLogged(false);
-    navigate("/");
-    toast.success("Logout bem sucedido")
-  };
+  const { logout } = useAuth()
 
   return (
     <S.MenuContainer>
@@ -50,7 +45,10 @@ const Menu = ({ path, setLogged }: MenuProps) => {
         </S.MenuItem>
       </nav>
       <S.MenuItem logout>
-        <S.MenuItemButton onClick={handleLogout}>
+        <S.MenuItemButton onClick={() => {
+          logout()
+          toast.success("Logout bem sucedido");
+        }}>
           <LogoutIcon />
         </S.MenuItemButton>
       </S.MenuItem>
