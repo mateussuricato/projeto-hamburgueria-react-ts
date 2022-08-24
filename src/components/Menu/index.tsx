@@ -3,6 +3,7 @@ import Logo from "../../assets/logo_patterns/logo.png";
 import { HomeIcon, SettingsIcon, LogoutIcon, FavIcon} from "../../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { Dispatch, SetStateAction } from "react";
+import toast from "react-hot-toast";
 
 interface MenuProps {
   path: "home" | "settings" | "favorites";
@@ -13,8 +14,10 @@ const Menu = ({ path, setLogged }: MenuProps) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    localStorage.clear()
     setLogged(false);
     navigate("/");
+    toast.success("Logout bem sucedido")
   };
 
   return (

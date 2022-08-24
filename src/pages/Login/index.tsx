@@ -5,6 +5,7 @@ import logo from "../../assets/logo_patterns/logo.png";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 
 interface LoginProps {
   setLogged: Dispatch<SetStateAction<boolean>>;
@@ -17,14 +18,32 @@ const Login = ({ setLogged }: LoginProps) => {
   const [password, setPassword] = useState<string>("");
 
   const handleLogin = () => {
-    if (email === "admin" && password === "admin") {
-      setLogged(true);
-      navigate("/home");
-      toast.success("Bem Vindo(a) Larissa!", {duration: 7000})
-      return;
+    if (email !== "" && password !== "") {
+      const data = {
+        email,
+        password,
+      };
+
+      return axios
+        .post(
+          "https://projetoblue-hamburgueria-api-production.up.railway.app/auth/login",
+          data
+        )
+        .then((res) => {
+          localStorage.setItem("token", res.data.token)
+          localStorage.setItem("user", JSON.stringify(res.data.user))
+          const token = localStorage.getItem("token")
+          setLogged(true);
+          navigate("/");
+          toast.success(`Bem vindo(a) ${res.data.user.name} `, { duration: 7000 });
+        })
+        .catch(() => {
+          toast.error("Usuário ou Senha inválido");
+        });
+
     }
 
-    toast.error("Usuário ou senha incorretos");
+    toast.error("Preencha os campos de login");
   };
   return (
     <S.LoginPageContainer>
