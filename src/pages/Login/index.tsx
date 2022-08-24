@@ -6,56 +6,76 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useAuth } from "../../contexts/auth";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { StyledInput } from "../../components/Input/styles";
 
+interface LoginData {
+  email: string;
+  password: string;
+}
+
+const loginSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("O formato do e-mail está inválido")
+    .required("Campo de e-mail obrigatório"),
+
+  password: yup
+    .string()
+    .min(8, "Sua senha deve ter no mínimo 8 catacteres")
+    .matches(
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/,
+      "Sua senha deve ter no mínimo um caracter especial, um número e uma letra maiúscula"
+    )
+    .required("Campo de senha obrigatório"),
+});
 
 const Login = () => {
-  const { login } = useAuth()
+  const { login } = useAuth();
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginData>({ resolver: yupResolver(loginSchema) });
 
-  const handleLogin = () => {
-    if (email !== "" && password !== "") {
-      const data = {
-        email,
-        password,
-      };
+  const handleLogin = ({ email, password }: LoginData) => {
+    const data = {
+      email,
+      password,
+    };
 
-      return axios
-        .post(
-          "https://projetoblue-hamburgueria-api-production.up.railway.app/auth/login",
-          data
-        )
-        .then((res) => {
-          login({token: res.data.token, user: res.data.user})
-        })
-        .catch(() => {
-          toast.error("Usuário ou Senha inválido");
-        });
-
-    }
-
-    toast.error("Preencha os campos de login");
+    axios
+      .post(
+        "https://projetoblue-hamburgueria-api-production.up.railway.app/auth/login",
+        data
+      )
+      .then((res) => {
+        login({ token: res.data.token, user: res.data.user });
+      })
+      .catch(() => {
+        toast.error("Usuário ou Senha inválido");
+      });
   };
   return (
     <S.LoginPageContainer>
-      <S.LoginFormContainer>
+      <S.LoginFormContainer onSubmit={handleSubmit(handleLogin)}>
         <S.LoginLogoContainer>
           <h1>Burguer Fresh</h1>
           <img src={logo} alt="logo" />
         </S.LoginLogoContainer>
-        <Input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
-        <Input
+        <StyledInput placeholder="Email" {...register("email")} />
+        <StyledInput
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           placeholder="Senha"
+          {...register("password")}
         />
-        <Button text="Entrar" size="large" onClick={handleLogin} />
+        <S.ErrorMessage>
+          {errors.email?.message || errors.password?.message}
+        </S.ErrorMessage>
+        <Button text="Entrar" size="large" type="submit" />
       </S.LoginFormContainer>
     </S.LoginPageContainer>
   );
