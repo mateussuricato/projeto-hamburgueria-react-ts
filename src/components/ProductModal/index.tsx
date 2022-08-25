@@ -4,6 +4,12 @@ import * as S from "./styles";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { Category } from "../../types";
+import { mockedCategories } from "../../mocks/index";
+import { api } from "../../services";
+import toast from "react-hot-toast";
+import { useProducts } from "../../contexts/products";
 
 interface ProductsModalProps {
   handleOpenModal: () => void;
@@ -14,6 +20,7 @@ interface NewProductData {
   description: string;
   price: number;
   image: string;
+  categoryId?: string;
 }
 
 const newProductSchema = yup.object().shape({
@@ -33,13 +40,33 @@ const newProductSchema = yup.object().shape({
 });
 
 const ProductModal = ({ handleOpenModal }: ProductsModalProps) => {
+  const { handleGetProducts } = useProducts();
+
+  const [categoryId, setCategoryId] = useState<string>("");
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<NewProductData>({ resolver: yupResolver(newProductSchema) });
 
-  const handleNewProduct = (data: NewProductData) => {};
+  const handleNewProduct = (data: NewProductData) => {
+    data.categoryId = categoryId;
+
+    const token = localStorage.getItem("token");
+
+    const headers = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    api.post("/products", data, headers).then((res) => {
+      toast.success("Produto registrado com sucesso");
+      handleGetProducts();
+      handleOpenModal();
+    }).catch((err)=> toast.error("Selecione uma categoria"));
+  };
 
   return (
     <S.ModalOverlay>
@@ -51,6 +78,7 @@ const ProductModal = ({ handleOpenModal }: ProductsModalProps) => {
           {...register("description")}
         />
         <StyledInput
+          step="0.01"
           type="number"
           placeholder="Preço do Produto"
           {...register("price")}
@@ -59,7 +87,17 @@ const ProductModal = ({ handleOpenModal }: ProductsModalProps) => {
           placeholder="Url da Imagem do Produto"
           {...register("image")}
         />
-        <StyledInput placeholder="Categoria do Produto" />
+        <S.Select
+          value={categoryId}
+          onChange={(e) => setCategoryId(e.target.value)}
+        >
+          <option>Selecione a categoria...</option>
+          {mockedCategories.map((element) => (
+            <option key={element.id} value={element.id}>
+              {element.name}
+            </option>
+          ))}
+        </S.Select>
         {
           <ErrorMessage>
             {errors.name?.message ||
