@@ -1,15 +1,24 @@
-import { Dispatch, SetStateAction } from "react";
 import Menu from "../../components/Menu";
 import * as S from "./styles";
 import { MarketIcon, InfoIcon, PromotionIcon } from "../../assets/icons";
 import Button from "../../components/Button";
-import { mockedProducts } from "../../mocks";
 import SettingsProductCard from "../../components/SettingsProductCard";
+import { useProducts } from "../../contexts/products";
+import { useState } from "react";
+import ProductModal from "../../components/ProductModal";
 
 const Settings = () => {
+  const { products } = useProducts();
+
+  const [openModal, setOpenModal] = useState<boolean>(false)
+
+  const handleOpenModal = () => {
+    setOpenModal(!openModal)
+  }
+
   return (
     <S.SettingsContainer>
-      <Menu path="settings"/>
+      <Menu path="settings" />
       <S.SettingsNavigationContainer>
         <h2>Configurações</h2>
         <S.SettingsNavigationButtonsList>
@@ -59,11 +68,11 @@ const Settings = () => {
           </S.EntitiesEditCategoriesButton>
         </S.EntitiesEditCategoriesSelector>
         <S.EntitiesEditList>
-          <S.AddEntityCard>
+          <S.AddEntityCard onClick={handleOpenModal}>
             <h2>+</h2>
             <p>Adicionar Item</p>
           </S.AddEntityCard>
-          {mockedProducts.map((element) => (
+          {products.map((element) => (
             <SettingsProductCard product={element} key={element.id} />
           ))}
         </S.EntitiesEditList>
@@ -72,6 +81,7 @@ const Settings = () => {
           <Button text="Salvar Mudanças"></Button>
         </S.ConfirmationContainer>
       </S.EntitiesEditContainer>
+      {openModal && <ProductModal handleOpenModal={handleOpenModal}/>}
     </S.SettingsContainer>
   );
 };
