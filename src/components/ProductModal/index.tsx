@@ -1,10 +1,14 @@
-import { ErrorMessage, StyledInput } from "../../assets/styles/globalStyles";
+import {
+  ErrorMessage,
+  ModalOverlay,
+  StyledInput,
+} from "../../assets/styles/globalStyles";
 import Button from "../Button";
 import * as S from "./styles";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Product } from "../../types";
 import { mockedCategories } from "../../mocks/index";
 import { api } from "../../services";
@@ -14,6 +18,7 @@ import { useProducts } from "../../contexts/products";
 interface ProductsModalProps {
   handleOpenModal: () => void;
   product?: Product;
+  setProduct: Dispatch<SetStateAction<Product | undefined>>;
 }
 
 interface NewProductData {
@@ -49,7 +54,11 @@ const updateProductSchema = yup.object().shape({
   image: yup.string().url("Formato de URL inválido"),
 });
 
-const ProductModal = ({ handleOpenModal, product }: ProductsModalProps) => {
+const ProductModal = ({
+  handleOpenModal,
+  product,
+  setProduct,
+}: ProductsModalProps) => {
   const { handleGetProducts } = useProducts();
 
   const [categoryId, setCategoryId] = useState<string>(
@@ -81,6 +90,7 @@ const ProductModal = ({ handleOpenModal, product }: ProductsModalProps) => {
         toast.success("Produto registrado com sucesso");
         handleGetProducts();
         handleOpenModal();
+        setProduct(undefined);
       })
       .catch((err) => toast.error("Selecione uma categoria"));
   };
@@ -92,11 +102,12 @@ const ProductModal = ({ handleOpenModal, product }: ProductsModalProps) => {
       toast.success("Produto atualizado com sucesso");
       handleGetProducts();
       handleOpenModal();
+      setProduct(undefined);
     });
   };
 
   return (
-    <S.ModalOverlay>
+    <ModalOverlay>
       <S.ModalContainer
         onSubmit={
           product
@@ -147,16 +158,19 @@ const ProductModal = ({ handleOpenModal, product }: ProductsModalProps) => {
           </ErrorMessage>
         }
         <div>
+          <Button onClick={handleOpenModal} size="small" text="Cancelar" variant="cancel" />
           <Button
-            onClick={handleOpenModal}
             size="small"
-            text="Cancelar"
-            variant="cancel"
+            text="Enviar"
+            type="submit"
+            onClick={() => {
+              setProduct(undefined);
+              handleOpenModal;
+            }}
           />
-          <Button size="small" text="Enviar" type="submit" />
         </div>
       </S.ModalContainer>
-    </S.ModalOverlay>
+    </ModalOverlay>
   );
 };
 
