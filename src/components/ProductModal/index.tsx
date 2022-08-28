@@ -158,16 +158,16 @@ const ProductModal = ({
           </ErrorMessage>
         }
         <div>
-          <Button onClick={handleOpenModal} size="small" text="Cancelar" variant="cancel" />
           <Button
-            size="small"
-            text="Enviar"
-            type="submit"
             onClick={() => {
               setProduct(undefined);
-              handleOpenModal;
+              handleOpenModal();
             }}
+            size="small"
+            text="Cancelar"
+            variant="cancel"
           />
+          <Button size="small" text="Enviar" type="submit" />
         </div>
       </S.ModalContainer>
     </ModalOverlay>
