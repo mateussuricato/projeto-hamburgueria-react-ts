@@ -1,15 +1,14 @@
 import Button from "../../components/Button";
-import Input from "../../components/Input";
 import * as S from "./styles";
 import logo from "../../assets/logo_patterns/logo.png";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import axios from "axios";
 import { useAuth } from "../../contexts/auth";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { StyledInput } from "../../components/Input/styles";
+import { ErrorMessage, StyledInput } from "../../assets/styles/globalStyles";
+import { api } from "../../services";
 
 interface LoginData {
   email: string;
@@ -47,11 +46,8 @@ const Login = () => {
       password,
     };
 
-    axios
-      .post(
-        "https://projetoblue-hamburgueria-api-production.up.railway.app/auth/login",
-        data
-      )
+    api
+      .post("/auth/login", data)
       .then((res) => {
         login({ token: res.data.token, user: res.data.user });
       })
@@ -72,9 +68,9 @@ const Login = () => {
           placeholder="Senha"
           {...register("password")}
         />
-        <S.ErrorMessage>
+        <ErrorMessage>
           {errors.email?.message || errors.password?.message}
-        </S.ErrorMessage>
+        </ErrorMessage>
         <Button text="Entrar" size="large" type="submit" />
       </S.LoginFormContainer>
     </S.LoginPageContainer>
