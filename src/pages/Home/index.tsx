@@ -3,21 +3,22 @@ import Menu from "../../components/Menu";
 import * as S from "./styles";
 import { DateTime } from "luxon";
 import ProductsList from "../../components/ProductsList";
-import { mockedCategories } from "../../mocks";
 import { useState } from "react";
 import { Category, Product } from "../../types";
 import OrderDetails from "../../components/OrderDetails";
 import { useProducts } from "../../contexts/products";
+import { useCategories } from "../../contexts/categories";
 
 const Home = () => {
-  const {products} = useProducts()
+  const { categories } = useCategories();
+  const { products } = useProducts();
 
-  const [selectedCategory, setSelectedCategory] = useState<Category>(
-    mockedCategories[0]
+  const [selectedCategory, setSelectedCategory] = useState<Category | undefined>(
+    categories[0]
   );
 
   const filteredProducts: Product[] = products.filter(
-    (element) => element.categoryId === selectedCategory.id
+    (element) => selectedCategory && element.categoryId === selectedCategory.id
   );
 
   const handleChangeCategory = (category: Category) => {
@@ -28,7 +29,7 @@ const Home = () => {
 
   return (
     <S.HomeContainer>
-      <Menu path="home"/>
+      <Menu path="home" />
       <S.HomeContentContainer>
         <S.HomeContentHeader>
           <S.TitleContainer>
@@ -42,17 +43,18 @@ const Home = () => {
         </S.HomeContentHeader>
         <section>
           <S.CategoriesNavigationBar>
-            {mockedCategories.map((element) => {
-              return (
-                <S.CategoriesNavigationButton
-                  active={element.name === selectedCategory.name}
-                  onClick={() => handleChangeCategory(element)}
-                  key={element.id}
-                >
-                  {element.name}
-                </S.CategoriesNavigationButton>
-              );
-            })}
+            {categories.length > 0 &&
+              categories.map((element) => {
+                return (
+                  <S.CategoriesNavigationButton
+                    active={element.name === selectedCategory?.name}
+                    onClick={() => handleChangeCategory(element)}
+                    key={element.id}
+                  >
+                    {element.name}
+                  </S.CategoriesNavigationButton>
+                );
+              })}
           </S.CategoriesNavigationBar>
           <S.ProductsHeaderContainer>
             <h2>Escolha seu lanche</h2>
