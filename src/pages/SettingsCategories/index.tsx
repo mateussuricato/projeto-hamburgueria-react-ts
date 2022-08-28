@@ -4,16 +4,23 @@ import CategoryModal from "../../components/CategoryModal";
 import Menu from "../../components/Menu";
 import SettingsMenu from "../../components/SettingsMenu";
 import { useCategories } from "../../contexts/categories";
+import { Category } from "../../types";
 import * as S from "./styles";
 
 const SettingsCategories = () => {
   const { categories } = useCategories();
 
-  const [openModal, setOpenModal] = useState<boolean>(false)
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [category, setCategory] = useState<Category | undefined>(undefined);
 
   const handleOpenModal = () => {
-    setOpenModal(!openModal)
-  }
+    setOpenModal(!openModal);
+  };
+
+  const handleOpenUpdateModal = (category: Category) => {
+    setCategory(category);
+    setOpenModal(!openModal);
+  };
 
   return (
     <S.SettingsContainer>
@@ -31,19 +38,21 @@ const SettingsCategories = () => {
               <S.EntityCard key={element.id}>
                 <p>{element.name}</p>
                 <div>
-                    <S.SettingsCategoryEditButton>
+                  <S.SettingsCategoryEditButton
+                    onClick={() => handleOpenUpdateModal(element)}
+                  >
                     <EditIcon /> Editar
-                    </S.SettingsCategoryEditButton>
-                    <S.SettingsCategoryDeleteButton>
+                  </S.SettingsCategoryEditButton>
+                  <S.SettingsCategoryDeleteButton>
                     <TrashIcon /> Remover
-                    </S.SettingsCategoryDeleteButton>
+                  </S.SettingsCategoryDeleteButton>
                 </div>
               </S.EntityCard>
             );
           })}
         </S.EntitiesEditList>
       </S.EntitiesEditContainer>
-      {openModal && <CategoryModal handleOpenModal={handleOpenModal}/>}
+      {openModal && <CategoryModal setCategory={setCategory} category={category} handleOpenModal={handleOpenModal} />}
     </S.SettingsContainer>
   );
 };
