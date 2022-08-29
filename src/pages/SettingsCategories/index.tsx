@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TrashIcon, EditIcon } from "../../assets/icons";
 import CategoryModal from "../../components/CategoryModal";
+import DeleteCategoryModal from "../../components/DeleteCategoryModal";
 import Menu from "../../components/Menu";
 import SettingsMenu from "../../components/SettingsMenu";
 import { useCategories } from "../../contexts/categories";
@@ -11,6 +12,7 @@ const SettingsCategories = () => {
   const { categories } = useCategories();
 
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [category, setCategory] = useState<Category | undefined>(undefined);
 
   const handleOpenModal = () => {
@@ -20,6 +22,10 @@ const SettingsCategories = () => {
   const handleOpenUpdateModal = (category: Category) => {
     setCategory(category);
     setOpenModal(!openModal);
+  };
+
+  const handleOpenDeleteModal = () => {
+    setOpenDeleteModal(!openDeleteModal);
   };
 
   return (
@@ -43,7 +49,12 @@ const SettingsCategories = () => {
                   >
                     <EditIcon /> Editar
                   </S.SettingsCategoryEditButton>
-                  <S.SettingsCategoryDeleteButton>
+                  <S.SettingsCategoryDeleteButton
+                    onClick={() => {
+                      setCategory(element);
+                      handleOpenDeleteModal()
+                    }}
+                  >
                     <TrashIcon /> Remover
                   </S.SettingsCategoryDeleteButton>
                 </div>
@@ -52,7 +63,20 @@ const SettingsCategories = () => {
           })}
         </S.EntitiesEditList>
       </S.EntitiesEditContainer>
-      {openModal && <CategoryModal setCategory={setCategory} category={category} handleOpenModal={handleOpenModal} />}
+      {openModal && (
+        <CategoryModal
+          setCategory={setCategory}
+          category={category}
+          handleOpenModal={handleOpenModal}
+        />
+      )}
+      {openDeleteModal && (
+        <DeleteCategoryModal
+          categoryId={category?.id}
+          handleOpenDeleteModal={handleOpenDeleteModal}
+          setCategory={setCategory}
+        />
+      )}
     </S.SettingsContainer>
   );
 };
