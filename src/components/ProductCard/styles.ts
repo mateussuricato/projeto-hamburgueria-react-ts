@@ -6,9 +6,9 @@ interface CardContainerProps {
 }
 
 export const CardContainer = styled.div`
-    ${({theme}) => css`
-    width: 12rem;
-    height: 14.125rem;
+  ${({ theme }) => css`
+    width: 13.5rem;
+    height: 18rem;
     background-color: ${theme.colors.baseBg2};
     border-radius: 16px;
     display: flex;
@@ -20,11 +20,21 @@ export const CardContainer = styled.div`
     justify-content: center;
     padding-top: 3rem;
     box-sizing: border-box;
+    margin-top: 50px;
+    padding: 1rem;
 
     img {
-        position: absolute;
-        width: 8rem;
-        top: -3.3rem;
+      position: absolute;
+      width: 8rem;
+      top: -4.5rem;
     }
-    `}
+
+    h4 {
+      margin-bottom:  1rem;
+    }
+
+    p {
+      margin-bottom:  1rem;
+    }
+  `}
 `;
