@@ -6,11 +6,23 @@ import SettingsProductCard from "../../components/SettingsProductCard";
 import { useProducts } from "../../contexts/products";
 import { useState } from "react";
 import ProductModal from "../../components/ProductModal";
-import { Product } from "../../types";
+import { Category, Product } from "../../types";
 import DeleteProductModal from "../../components/DeleteProductModal";
+import { useCategories } from "../../contexts/categories";
+import SettingsMenu from "../../components/SettingsMenu";
 
-const Settings = () => {
+const SettingsProducts = () => {
   const { products } = useProducts();
+
+  const { categories } = useCategories();
+
+  const [selectedCategory, setSelectedCategory] = useState<Category>(
+    categories[0] || ({} as Category)
+  );
+
+  const filteredProducts: Product[] = products.filter(
+    (element) => selectedCategory && element.categoryId === selectedCategory.id
+  );
 
   const [openModal, setOpenModal] = useState<boolean>(false);
 
@@ -29,60 +41,29 @@ const Settings = () => {
   return (
     <S.SettingsContainer>
       <Menu path="settings" />
-      <S.SettingsNavigationContainer>
-        <h2>Configurações</h2>
-        <S.SettingsNavigationButtonsList>
-          <div>
-            <S.SettingsNavigationButtonsContainer>
-              <S.SettingsNavigationButtonsSelected>
-                <MarketIcon />
-                <h2>Customize suas mesas</h2>
-                <p>Adicione mesas, configure nomes</p>
-              </S.SettingsNavigationButtonsSelected>
-            </S.SettingsNavigationButtonsContainer>
-            <S.SettingsNavigationButtonsContainer active>
-              <S.SettingsNavigationButtonsSelected active>
-                <PromotionIcon />
-                <h2>Gerenciar Produtos</h2>
-                <p>Edite os pratos, preços e etc.</p>
-              </S.SettingsNavigationButtonsSelected>
-            </S.SettingsNavigationButtonsContainer>
-            <S.SettingsNavigationButtonsContainer>
-              <S.SettingsNavigationButtonsSelected>
-                <PromotionIcon />
-                <h2>Gerenciar Categorias</h2>
-                <p>Adicione e edite categorias</p>
-              </S.SettingsNavigationButtonsSelected>
-            </S.SettingsNavigationButtonsContainer>
-            <S.SettingsNavigationButtonsContainer>
-              <S.SettingsNavigationButtonsSelected>
-                <InfoIcon />
-                <h2>Gerenciar usuários</h2>
-                <p>Gerencie o acesso ao sistema</p>
-              </S.SettingsNavigationButtonsSelected>
-            </S.SettingsNavigationButtonsContainer>
-          </div>
-        </S.SettingsNavigationButtonsList>
-      </S.SettingsNavigationContainer>
+      <SettingsMenu path="products"/>
       <S.EntitiesEditContainer>
         <h2>Gerenciar Produtos</h2>
         <S.EntitiesEditCategoriesSelector>
-          <S.EntitiesEditCategoriesButton active>
-            Lanches
-          </S.EntitiesEditCategoriesButton>
-          <S.EntitiesEditCategoriesButton>
-            Porções
-          </S.EntitiesEditCategoriesButton>
-          <S.EntitiesEditCategoriesButton>
-            Bebidas
-          </S.EntitiesEditCategoriesButton>
+          {categories.map((element) => {
+            return (
+              <S.EntitiesEditCategoriesButton
+                active={element.name === selectedCategory.name}
+                onClick={() => {
+                  setSelectedCategory(element);
+                }}
+              >
+                {element.name}
+              </S.EntitiesEditCategoriesButton>
+            );
+          })}
         </S.EntitiesEditCategoriesSelector>
         <S.EntitiesEditList>
           <S.AddEntityCard onClick={handleOpenModal}>
             <h2>+</h2>
             <p>Adicionar Item</p>
           </S.AddEntityCard>
-          {products.map((element) => (
+          {filteredProducts.map((element) => (
             <SettingsProductCard
               handleOpenModal={handleOpenModal}
               handleOpenDeleteModal={handleOpenDeleteModal}
@@ -115,4 +96,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default SettingsProducts;

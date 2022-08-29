@@ -37,7 +37,7 @@ const Menu = ({ path }: MenuProps) => {
         </S.MenuItem>
         <S.MenuItem active={path === "settings"}>
           <S.MenuItemButton
-            onClick={() => navigate("/settings")}
+            onClick={() => navigate("/settings/products")}
             active={path === "settings"}
           >
             <SettingsIcon />
