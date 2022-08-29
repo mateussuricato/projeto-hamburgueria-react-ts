@@ -10,10 +10,10 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Product } from "../../types";
-import { mockedCategories } from "../../mocks/index";
 import { api } from "../../services";
 import toast from "react-hot-toast";
 import { useProducts } from "../../contexts/products";
+import { useCategories } from "../../contexts/categories";
 
 interface ProductsModalProps {
   handleOpenModal: () => void;
@@ -59,6 +59,7 @@ const ProductModal = ({
   product,
   setProduct,
 }: ProductsModalProps) => {
+  const { categories } = useCategories();
   const { handleGetProducts } = useProducts();
 
   const [categoryId, setCategoryId] = useState<string>(
@@ -82,6 +83,8 @@ const ProductModal = ({
   };
 
   const handleNewProduct = (data: NewProductData) => {
+
+    
     data.categoryId = categoryId;
 
     api
@@ -143,7 +146,7 @@ const ProductModal = ({
           onChange={(e) => setCategoryId(e.target.value)}
         >
           <option>Selecione a categoria...</option>
-          {mockedCategories.map((element) => (
+          {categories.map((element) => (
             <option key={element.id} value={element.id}>
               {element.name}
             </option>

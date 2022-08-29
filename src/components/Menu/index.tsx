@@ -27,14 +27,6 @@ const Menu = ({ path }: MenuProps) => {
             <HomeIcon />
           </S.MenuItemButton>
         </S.MenuItem>
-        <S.MenuItem active={path === "favorites"}>
-          <S.MenuItemButton
-            onClick={() => navigate("/favorites")}
-            active={path === "favorites"}
-          >
-            <FavIcon />
-          </S.MenuItemButton>
-        </S.MenuItem>
         <S.MenuItem active={path === "settings"}>
           <S.MenuItemButton
             onClick={() => navigate("/settings/products")}

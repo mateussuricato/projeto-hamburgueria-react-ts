@@ -1,7 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Favorites from "./pages/Favorites";
 import SettingsProducts from "./pages/SettingsProducts";
 import { useAuth } from "./contexts/auth";
 import SettingsCategories from "./pages/SettingsCategories";
@@ -16,7 +15,6 @@ const Router = () => {
           <Route path="/" element={<Home />} />
           <Route path="/settings/products" element={<SettingsProducts />} />
           <Route path="/settings/categories" element={<SettingsCategories />} />
-          <Route path="/favorites" element={<Favorites />} />
         </>
       ) : (
         <Route path="/login" element={<Login />} />

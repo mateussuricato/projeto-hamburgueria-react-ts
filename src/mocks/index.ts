@@ -35,28 +35,6 @@ export const mockedProducts: T.Product[] = [
     updatedAt: new Date(),
   },
   {
-    id: "3df26203-5a36-402b-ac7d-437339db15bf",
-    name: "Burguer Salada",
-    description:
-      "Hamburguer com uma carne bovina de 180g, queijo, salada e molho especial.",
-    price: 17.99,
-    image: burguerSalada,
-    categoryId: "1c86eac1-f2b9-4bdf-8dc9-21bcd789da4g",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: "10c6c5d1-24eb-436d-a21a-0c9b8516f9fa",
-    name: "Burguer Salada e Queijo Especial",
-    description:
-      "Hamburguer com uma carne bovina de 180g, queijo especial artesanal, salada e molho.",
-    price: 22.99,
-    image: burguerSaladaQueijo,
-    categoryId: "1c86eac1-f2b9-4bdf-8dc9-21bcd789da4g",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
     id: "b201ee19-c00d-4e2a-bdf0-f4101348f1b5",
     name: "Burguer Carne e Frango",
     description:
@@ -154,19 +132,19 @@ export const mockedProducts: T.Product[] = [
 
 export const mockedCategories: T.Category[] = [
   {
-    id: "d32ff0b8-d5fa-4de6-bfd1-8a2d359cbf69",
+    id: "e7e77543-2515-4a5c-99f6-c8495ac45f0d",
     name: "Lanches",
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   {
-    id: "774f3adb-c6d2-440c-90ed-1f6e62ca2017",
+    id: "265c2b49-564a-4a5a-a758-ef7263eb2e9e",
     name: "Porções",
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   {
-    id: "99064aa9-73f6-4e6b-b30b-1af42682f2ed",
+    id: "f4dd96ac-33ea-4e95-bdd5-01e67e9af307",
     name: "Bebidas",
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -220,22 +198,14 @@ export const mockedUsers: T.User[] = [
 export const mockedFavorites: T.Favorite[] = [
   {
     id: "35abf7f1-c999-4bcf-abfb-a95cb483a2b9",
-    productName: "Burguer Salada e Queijo Especial",
-    description:
-      "Hamburguer com uma carne bovina de 180g, queijo, salada e molho especial.",
-    price: 17.99,
-    image: burguerSalada,
-    userId: "6d6cf9d2-cf94-4b90-a53b-973d92501e02",
+    productName: "Burguer Salada",
+    userId: "64bb9795-bb33-4e0f-8344-87a57ff30047",
     favoritedAt: new Date(),
   },
   {
     id: "9a5a8f0e-43aa-4d77-8afd-e3a95deddc81",
-    description:
-      "Hamburguer com uma carne bovina de 180g, queijo especial artesanal, salada e molho.",
-    price: 22.99,
-    image: burguerSaladaQueijo,
-    productName: "Burguer Duplo Bacon e Cheddar",
-    userId: "6d6cf9d2-cf94-4b90-a53b-973d92501e02",
+    productName: "Burguer Carne e Frango",
+    userId: "64bb9795-bb33-4e0f-8344-87a57ff30047",
     favoritedAt: new Date(),
   },
 ];
