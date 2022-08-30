@@ -9,10 +9,12 @@ import OrderDetails from "../../components/OrderDetails";
 import { useProducts } from "../../contexts/products";
 import { useCategories } from "../../contexts/categories";
 import { api } from "../../services";
+import { useTables } from "../../contexts/tables";
 
 const Home = () => {
   const { categories } = useCategories();
   const { products } = useProducts();
+  const { tables } = useTables()
 
   const [selectedCategory, setSelectedCategory] = useState<
     Category | undefined
