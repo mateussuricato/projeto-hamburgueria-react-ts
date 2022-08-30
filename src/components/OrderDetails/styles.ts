@@ -13,7 +13,8 @@ ${({theme}) => css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
+    position: fixed;
+    right: 0;
 `}
 `;
 

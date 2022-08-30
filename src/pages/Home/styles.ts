@@ -10,6 +10,7 @@ export const HomeContainer = styled.div`
   display: flex;
   background-color: #252836;
   color: #fff;
+  overflow-y: scroll;
 
   section {
     width: 100%;
@@ -24,6 +25,8 @@ export const HomeContainer = styled.div`
 
 export const HomeContentContainer = styled.div`
   width: calc(100% - 32.375rem);
+  padding-left: 6.5rem;
+
 `;
 
 export const HomeContentHeader = styled.header`
