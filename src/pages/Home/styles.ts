@@ -26,7 +26,6 @@ export const HomeContainer = styled.div`
 export const HomeContentContainer = styled.div`
   width: calc(100% - 32.375rem);
   padding-left: 6.5rem;
-
 `;
 
 export const HomeContentHeader = styled.header`
@@ -116,8 +115,14 @@ export const TableSelect = styled.select`
   color: #ffffff;
   padding: 0 1rem;
   box-sizing: border-box;
-  
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: 50%;
+
   :focus {
     outline: none;
   }
+
 `;

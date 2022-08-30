@@ -111,7 +111,9 @@ const Home = () => {
               <option value="" disabled selected>
                 Selecione a mesa
               </option>
-              <option value="1">1</option>
+              {tables.map((elem)=> {
+                return <option value={elem.number}>{elem.number}</option>
+              })}
             </S.TableSelect>
           </S.ProductsHeaderContainer>
           <ProductsList
