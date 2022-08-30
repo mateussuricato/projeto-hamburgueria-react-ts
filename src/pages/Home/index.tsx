@@ -14,7 +14,7 @@ import { useTables } from "../../contexts/tables";
 const Home = () => {
   const { categories } = useCategories();
   const { products } = useProducts();
-  const { tables } = useTables()
+  const { tables } = useTables();
 
   const [selectedCategory, setSelectedCategory] = useState<
     Category | undefined
@@ -22,6 +22,7 @@ const Home = () => {
 
   const [isFavoritesList, setIsFavoritesList] = useState<boolean>(false);
   const [userFavoritesList, setUserFavoritesList] = useState<Product[]>([]);
+  const [searchInputValue, setSearchInputValue] = useState<Stri>("");
 
   const filteredProducts: Product[] = products.filter(
     (element) => selectedCategory && element.categoryId === selectedCategory.id
@@ -43,7 +44,7 @@ const Home = () => {
       headers
     );
 
-    const favorites = res.data
+    const favorites = res.data;
 
     const favoritesNames: string[] = favorites.map((elem) => elem.productName);
 
@@ -76,7 +77,12 @@ const Home = () => {
           </S.TitleContainer>
           <S.SearchInputContainer>
             <SearchIcon />
-            <input type="text" placeholder="Procure pelo sabor" />
+            <input
+              value={searchInputValue}
+              onChange={(e) => setSearchInputValue(e.target.value)}
+              type="text"
+              placeholder="Procure pelo sabor"
+            />
           </S.SearchInputContainer>
         </S.HomeContentHeader>
         <section>
@@ -111,15 +117,25 @@ const Home = () => {
               <option value="" disabled selected>
                 Selecione a mesa
               </option>
-              {tables.map((elem)=> {
-                return <option value={elem.number}>{elem.number}</option>
+              {tables.map((elem) => {
+                return <option value={elem.number}>{elem.number}</option>;
               })}
             </S.TableSelect>
           </S.ProductsHeaderContainer>
           <ProductsList
-          isFavoritesList={isFavoritesList}
-          handleGetFavorites={handleGetFavorites}
-            list={isFavoritesList ? userFavoritesList : filteredProducts}
+            isFavoritesList={isFavoritesList}
+            handleGetFavorites={handleGetFavorites}
+            list={
+              isFavoritesList
+                ? userFavoritesList
+                : searchInputValue !== ""
+                ? filteredProducts.filter((elem) =>
+                    elem.name
+                      .toLowerCase()
+                      .includes(searchInputValue.toLowerCase())
+                  )
+                : filteredProducts
+            }
           />
         </section>
       </S.HomeContentContainer>
