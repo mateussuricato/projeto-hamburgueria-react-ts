@@ -1,5 +1,5 @@
 # projeto-hamburgueria-react-ts
- projeto modulo 5 blue hamburgueria com react e typesript.
+ projeto módulo 5 blue hamburgueria com react e typesript.
 
 Esse projeto foi o mais complexo realizado até agora um AppWeb completo que consiste em varios CRUDs e algumas Join Tables.
 
