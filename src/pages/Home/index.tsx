@@ -22,7 +22,7 @@ const Home = () => {
 
   const [isFavoritesList, setIsFavoritesList] = useState<boolean>(false);
   const [userFavoritesList, setUserFavoritesList] = useState<Product[]>([]);
-  const [searchInputValue, setSearchInputValue] = useState<Stri>("");
+  const [searchInputValue, setSearchInputValue] = useState<String>("");
 
   const filteredProducts: Product[] = products.filter(
     (element) => selectedCategory && element.categoryId === selectedCategory.id
