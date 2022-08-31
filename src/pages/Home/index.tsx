@@ -1,7 +1,7 @@
-import { SearchIcon } from "../../assets/icons";
-import Menu from "../../components/Menu";
-import * as S from "./styles";
 import { DateTime } from "luxon";
+import { DownIcon, SearchIcon } from "../../assets/icons";
+import Menu from "../../components/Menu";
+import * as Styled from "./styles";
 import ProductsList from "../../components/ProductsList";
 import { useEffect, useState } from "react";
 import { Category, Favorite, Product, User } from "../../types";
@@ -16,13 +16,13 @@ const Home = () => {
   const { products } = useProducts();
   const { tables } = useTables();
 
-  const [selectedCategory, setSelectedCategory] = useState<
-    Category | undefined
-  >(categories[1]);
+  const [selectedCategory, setSelectedCategory] = useState<Category>(
+    categories[0] || ({} as Category)
+  );
 
   const [isFavoritesList, setIsFavoritesList] = useState<boolean>(false);
   const [userFavoritesList, setUserFavoritesList] = useState<Product[]>([]);
-  const [searchInputValue, setSearchInputValue] = useState<String>("");
+  const [searchInputValue, setSearchInputValue] = useState<string>("");
 
   const filteredProducts: Product[] = products.filter(
     (element) => selectedCategory && element.categoryId === selectedCategory.id
@@ -55,53 +55,48 @@ const Home = () => {
     setUserFavoritesList(favoritesList);
   };
 
-  const handleChangeCategory = (category: Category) => {
-    setSelectedCategory(category);
-  };
-
-  const date = DateTime.now();
-  const formatedDate = `${date.weekdayShort} ${date.day} ${date.monthLong} ${date.year}`;
+  const actualDate = DateTime.now();
+  const formatedDate = `${actualDate.weekdayShort}, ${actualDate.day} ${actualDate.monthLong} ${actualDate.year}`;
 
   useEffect(() => {
     handleGetFavorites();
   }, [products]);
 
   return (
-    <S.HomeContainer>
+    <Styled.HomeContainer>
       <Menu path="home" />
-      <S.HomeContentContainer>
-        <S.HomeContentHeader>
-          <S.TitleContainer>
-            <h1>Bruger Fresh</h1>
+      <Styled.HomeContentContainer>
+        <Styled.HomeContentHeader>
+          <Styled.TitleContainer>
+            <h1>Burguer Fresh</h1>
             <p>{formatedDate}</p>
-          </S.TitleContainer>
-          <S.SearchInputContainer>
+          </Styled.TitleContainer>
+          <Styled.SearchInputContainer>
             <SearchIcon />
             <input
               value={searchInputValue}
               onChange={(e) => setSearchInputValue(e.target.value)}
-              type="text"
               placeholder="Procure pelo sabor"
             />
-          </S.SearchInputContainer>
-        </S.HomeContentHeader>
+          </Styled.SearchInputContainer>
+        </Styled.HomeContentHeader>
         <section>
-          <S.CategoriesNavigationBar>
+          <Styled.CategoriesNavigationBar>
             {categories.map((element) => {
               return (
-                <S.CategoriesNavigationButton
-                  active={element.name === selectedCategory?.name}
+                <Styled.CategoriesNavigationButton
+                  active={element.name === selectedCategory.name}
                   onClick={() => {
-                    handleChangeCategory(element);
+                    setSelectedCategory(element);
                     setIsFavoritesList(false);
                   }}
                   key={element.id}
                 >
                   {element.name}
-                </S.CategoriesNavigationButton>
+                </Styled.CategoriesNavigationButton>
               );
             })}
-            <S.CategoriesNavigationButton
+            <Styled.CategoriesNavigationButton
               active={isFavoritesList}
               onClick={() => {
                 setIsFavoritesList(true);
@@ -109,19 +104,19 @@ const Home = () => {
               }}
             >
               Favoritos
-            </S.CategoriesNavigationButton>
-          </S.CategoriesNavigationBar>
-          <S.ProductsHeaderContainer>
+            </Styled.CategoriesNavigationButton>
+          </Styled.CategoriesNavigationBar>
+          <Styled.ProductsHeaderContainer>
             <h2>Escolha seu lanche</h2>
-            <S.TableSelect>
-              <option value="" disabled selected>
+            <Styled.TableSelect defaultValue="">
+              <option value="" disabled>
                 Selecione a mesa
               </option>
               {tables.map((elem) => {
                 return <option value={elem.number}>{elem.number}</option>;
               })}
-            </S.TableSelect>
-          </S.ProductsHeaderContainer>
+            </Styled.TableSelect>
+          </Styled.ProductsHeaderContainer>
           <ProductsList
             isFavoritesList={isFavoritesList}
             handleGetFavorites={handleGetFavorites}
@@ -138,9 +133,9 @@ const Home = () => {
             }
           />
         </section>
-      </S.HomeContentContainer>
+      </Styled.HomeContentContainer>
       <OrderDetails />
-    </S.HomeContainer>
+    </Styled.HomeContainer>
   );
 };
 
